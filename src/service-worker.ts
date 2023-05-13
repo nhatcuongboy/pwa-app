@@ -127,7 +127,7 @@ const showSkipWaitingPrompt = async (event: any) => {
   const updateAccepted = confirm("Update app?");
 
   if (updateAccepted) {
-    // self.messageSkipWaiting();
+    // wb.messageSkipWaiting();
     // messageSW()
     event.postMessage({ type: "SKIP_WAITING" });
   }

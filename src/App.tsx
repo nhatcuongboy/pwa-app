@@ -17,7 +17,7 @@ function App() {
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        <h1>Data</h1>
+        <h1>Data 2</h1>
         <p>
           {JSON.stringify(data)}
         </p>
