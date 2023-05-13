@@ -64,8 +64,10 @@ function registerValidSW(swUrl: string, config?: Config) {
     .register(swUrl)
     .then((registration) => {
       registration.onupdatefound = () => {
+        console.log("onupdatefound");
         const installingWorker = registration.installing;
         if (installingWorker == null) {
+          console.log("installingWorker == null");
           return;
         }
         installingWorker.onstatechange = () => {
@@ -81,6 +83,7 @@ function registerValidSW(swUrl: string, config?: Config) {
 
               // Execute callback
               if (config && config.onUpdate) {
+                console.log("config.onUpdate", config.onUpdate);
                 config.onUpdate(registration);
               }
             } else {
