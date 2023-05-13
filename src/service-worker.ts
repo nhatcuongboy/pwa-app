@@ -70,6 +70,12 @@ registerRoute(
   })
 );
 
+// //Cache cdn files and external links
+registerRoute(
+  new RegExp("https:.*.(css|js|json|ico|)"),
+  new NetworkFirst({ cacheName: "external-cache" })
+);
+
 registerRoute(
   ({ url }) => {
     return `https://${url.host}` === "https://dummyjson.com";
