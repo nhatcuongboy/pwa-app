@@ -18,7 +18,10 @@ root.render(
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://cra.link/PWA
 serviceWorkerRegistration.register({
+  onSuccess(registration) {
+  },
   onUpdate(registration) {
+    console.log('onUpdate(registration)')
     const updateAccepted = window.confirm("Update app?");
 
     if (updateAccepted) {
