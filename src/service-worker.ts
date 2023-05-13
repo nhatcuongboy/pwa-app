@@ -8,6 +8,7 @@
 // You can also remove this file if you'd prefer not to use a
 // service worker, and the Workbox build step will be skipped.
 
+import { BackgroundSyncPlugin } from "workbox-background-sync";
 import { clientsClaim } from "workbox-core";
 import { ExpirationPlugin } from "workbox-expiration";
 import { precacheAndRoute, createHandlerBoundToURL } from "workbox-precaching";
@@ -70,12 +71,6 @@ registerRoute(
   })
 );
 
-// //Cache cdn files and external links
-registerRoute(
-  new RegExp("https:.*.(css|js|json|ico|)"),
-  new NetworkFirst({ cacheName: "external-cache" })
-);
-
 registerRoute(
   ({ url }) => {
     return `https://${url.host}` === "https://dummyjson.com";
@@ -94,3 +89,16 @@ self.addEventListener("message", (event) => {
 });
 
 // Any other custom service worker logic can go here.
+// const bgSyncPlugin = new BackgroundSyncPlugin("PATCH-que", {
+//   maxRetentionTime: 24 * 60,
+// });
+
+// registerRoute(
+//   ({ url }) => {
+//     return `https://${url.host}` === supabaseUrl
+//   },
+//   new NetworkOnly({
+//     plugins: [bgSyncPlugin],
+//   }),
+//   "PATCH"
+// );
