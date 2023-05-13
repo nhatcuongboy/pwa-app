@@ -103,7 +103,7 @@ self.addEventListener("message", (event) => {
 //   "PATCH"
 // );
 
-const showSkipWaitingPrompt = async (event: any) => {
+const showSkipWaitingPrompt = async (event: Event) => {
   // Assuming the user accepted the update, set up a listener
   // that will reload the page as soon as the previously waiting
   // service worker has taken control.
@@ -129,12 +129,13 @@ const showSkipWaitingPrompt = async (event: any) => {
   if (updateAccepted) {
     // wb.messageSkipWaiting();
     // messageSW()
-    event.postMessage({ type: "SKIP_WAITING" });
+    // self.postMessage({ type: "SKIP_WAITING" });
   }
 };
 
 // Add an event listener to detect when the registered
 // service worker has installed but is waiting to activate.
 self.addEventListener("waiting", (event) => {
+  console.log("Cuong wait");
   showSkipWaitingPrompt(event);
 });
