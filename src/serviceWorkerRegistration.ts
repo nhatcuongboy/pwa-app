@@ -63,6 +63,10 @@ function registerValidSW(swUrl: string, config?: Config) {
   navigator.serviceWorker
     .register(swUrl)
     .then((registration) => {
+      if (registration.waiting) {
+        console.log("config?.onUpdate?.(registration)", config?.onUpdate);
+        config?.onUpdate?.(registration);
+      }
       registration.onupdatefound = () => {
         console.log("onupdatefound");
         const installingWorker = registration.installing;
@@ -100,6 +104,15 @@ function registerValidSW(swUrl: string, config?: Config) {
           }
         };
       };
+      let refreshing = false;
+
+      // detect controller change and refresh the page
+      navigator.serviceWorker.addEventListener("controllerchange", () => {
+        if (!refreshing) {
+          window.location.reload();
+          refreshing = true;
+        }
+      });
     })
     .catch((error) => {
       console.error("Error during service worker registration:", error);
