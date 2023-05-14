@@ -11,12 +11,15 @@ function Home() {
                     navigator.serviceWorker.ready.then((registration) => {
                         registration.pushManager.getSubscription().then((subscription) => {
                             if (subscription) {
-                                const notificationPayload = {
-                                    title: 'Thông báo',
+                                // const notificationPayload = {
+                                //     title: 'Thông báo',
+                                //     body: 'Nội dung thông báo'
+                                //     // icon: 'path/to/icon.png',
+                                // };
+                                // const notification = new Notification(JSON.stringify(notificationPayload));
+                                registration.showNotification("Hello Cuong", {
                                     body: 'Nội dung thông báo'
-                                    // icon: 'path/to/icon.png',
-                                };
-                                const notification = new Notification(JSON.stringify(notificationPayload));
+                                })
                                 // subscription.pushManager
                                 //     .sendNotification(JSON.stringify(notificationPayload))
                                 //     .then(() => {
