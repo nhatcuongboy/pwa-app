@@ -9,7 +9,16 @@ function Home() {
                 console.log({ permission })
                 if (permission === 'granted') {
                     navigator.serviceWorker.ready.then((registration) => {
+                        console.log('HAHA', document.visibilityState)
+                        var body = "Message to be displayed";
+                        var notification = new Notification('Title', { body });
+                        notification.onclick = () => {
+                            notification.close();
+                            window.parent.focus();
+                        }
+
                         registration.pushManager.getSubscription().then((subscription) => {
+                            console.log('subscription', subscription)
                             if (subscription) {
                                 // const notificationPayload = {
                                 //     title: 'Thông báo',
