@@ -3,6 +3,10 @@ import logo from './logo.svg';
 import './App.css';
 
 function Home() {
+    useEffect(() => {
+        logJSONData();
+    }, [])
+
     function sendPushNotification() {
         if ('Notification' in window && 'PushManager' in window) {
             Notification.requestPermission().then(function (permission) {
@@ -17,12 +21,12 @@ function Home() {
                             window.parent.focus();
                         }
 
-                        const subscription = await registration.pushManager.subscribe()
-                        console.log({ subscription })
+                        // const subscription = await registration.pushManager.subscribe()
+                        // Call api send this subscription
+
                         // registration.pushManager.getSubscription().then((subscription) => {
-                        //     console.log('subscription', subscription)
                         //     if (subscription) {
-                        //         // var notification = new Notification('Test title', { body: 'Test Body' });
+                        //         new Notification('Test title', { body: 'Test Body' });
                         //         registration.showNotification("Hello Cuong", {
                         //             body: 'Nội dung thông báo'
                         //         })
@@ -40,9 +44,8 @@ function Home() {
         const jsonData = await response.json();
         setData(jsonData)
     }
-    useEffect(() => {
-        logJSONData();
-    }, [])
+
+
     return (
         <div className="App">
             <header className="App-header">

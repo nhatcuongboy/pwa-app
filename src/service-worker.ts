@@ -13,7 +13,11 @@ import { clientsClaim } from "workbox-core";
 import { ExpirationPlugin } from "workbox-expiration";
 import { precacheAndRoute, createHandlerBoundToURL } from "workbox-precaching";
 import { registerRoute } from "workbox-routing";
-import { NetworkFirst, StaleWhileRevalidate } from "workbox-strategies";
+import {
+  NetworkFirst,
+  NetworkOnly,
+  StaleWhileRevalidate,
+} from "workbox-strategies";
 
 declare const self: ServiceWorkerGlobalScope;
 
@@ -89,16 +93,16 @@ self.addEventListener("message", (event) => {
 });
 
 // Any other custom service worker logic can go here.
-// const bgSyncPlugin = new BackgroundSyncPlugin("PATCH-que", {
-//   maxRetentionTime: 24 * 60,
-// });
+const bgSyncPlugin = new BackgroundSyncPlugin("MySync", {
+  maxRetentionTime: 24 * 60, // retry time
+});
 
-// registerRoute(
-//   ({ url }) => {
-//     return `https://${url.host}` === supabaseUrl
-//   },
-//   new NetworkOnly({
-//     plugins: [bgSyncPlugin],
-//   }),
-//   "PATCH"
-// );
+registerRoute(
+  ({ url }) => {
+    return `https://${url.host}` === "https://dummyjson.com";
+  },
+  new NetworkOnly({
+    plugins: [bgSyncPlugin],
+  }),
+  "PATCH"
+);
